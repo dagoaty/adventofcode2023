@@ -14,19 +14,19 @@ def part1() -> int:
     # and add it to an array called values
     values: List[int] = []
     for input in inputs:
-        number: List[int] = []
+        number: List[str] = []
         for letter in input:
             if letter.isnumeric():
-                number.append(int(letter))
+                number.append(letter)
                 break
         for letter in reversed(input):
             if letter.isnumeric():
-                number.append(int(letter))
+                number.append(letter)
                 break
         
         # Join the two numbers in number, convert it to an integer
         # and add it to values
-        values.append(int("".join([str(number[0]), str(number[1])])))
+        values.append(int("".join([number[0], number[1]])))
         
 
     # Loop through values and sum all the numbers
@@ -65,7 +65,7 @@ def part2() -> int:
                     pos = input.find(wordNumber, i)
                     if pos > -1:
                         nums[pos] = numbers[wordNumbers.index(wordNumber)]
-                        i = pos + 1
+                        i = pos + len(wordNumber)
                     else:
                         break
 
