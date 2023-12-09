@@ -5,25 +5,16 @@ from functools import reduce
 from typing import List
 
 def loadInputs() -> List[List[int]]:
-    inputs: List[List[int]] = []
     with open(os.path.join(sys.path[0], "input.txt"), "r") as f:
-        for line in f:
-            inputs.append([int(x) for x in line.strip().split()])
-    return inputs
+        return [[int(x) for x in line.strip().split()] for line in f]
 
 
 def findDiffs(nums: List[int]) -> List[int]:
-    diffs: List[int] = []
-    for i in range(len(nums)-1):
-        diffs.append(nums[i+1] - nums[i])
-    return diffs
+    return [nums[i+1] - nums[i] for i in range(len(nums)-1)]
 
 
 def allZeros(nums: List[int]) -> bool:
-    for num in nums:
-        if num != 0:
-            return False
-    return True
+    return all(num == 0 for num in nums)
 
 
 def part1() -> int:
@@ -34,8 +25,8 @@ def part1() -> int:
         while not allZeros(nums):
             nums = findDiffs(nums)
             lastInt.append(nums[-1])
-        newNums.append(reduce(lambda x,y: x+y, lastInt[::-1]))
-    return reduce(lambda x,y: x+y, newNums)
+        newNums.append(sum(lastInt))
+    return sum(newNums)
 
 
 def part2() -> int:
@@ -47,7 +38,7 @@ def part2() -> int:
             nums = findDiffs(nums)
             firstInt.append(nums[0])
         newNums.append(reduce(lambda x,y: (x-y)*-1, firstInt[::-1]))
-    return reduce(lambda x,y: x+y, newNums)
+    return sum(newNums)
 
 
 print("Part 1:", part1())
